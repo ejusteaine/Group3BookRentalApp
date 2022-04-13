@@ -118,4 +118,20 @@ public class dbOperations {
         }
         return result;
     }
+    
+        public void viewExistingCustomers () {//is this a list or a search?
+    	String listCustomers = "select customers.customerId, customers.firstName, customers.lastName";
+    	try {
+    		PreparedStatement ps = DBConnection.dbConnected().prepareStatement(listCustomers);
+    		ResultSet rs = ps.executeQuery();
+    		while (rs.next()) {
+    			int customerId = rs.getInt("customerId");
+    			String firstName = rs.getString("firstName");
+    			String lastName = rs.getString("lastName");
+    			System.out.println(customerId + " " + firstName + " " + lastName);
+    		}
+    	} catch (Exception e) {
+    		System.out.println(e.getMessage());
+    	}
+    }
 }
