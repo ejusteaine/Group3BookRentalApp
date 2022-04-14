@@ -118,4 +118,21 @@ public class dbOperations {
         }
         return result;
     }
+    
+        public void viewExistingCustomers (int customerId) {
+    	String listCustomers = "select customers.customerId, customers.firstName, customers.lastName where customerId = ?";
+    	try {
+    		PreparedStatement ps = DBConnection.dbConnected().prepareStatement(listCustomers);
+            ps.setInt(1, customerId);
+    		ResultSet rs = ps.executeQuery();
+    		while (rs.next()) {
+    			int customerId = rs.getInt("customerId");
+    			String firstName = rs.getString("firstName");
+    			String lastName = rs.getString("lastName");
+    			System.out.println(customerId + " " + firstName + " " + lastName);
+    		}
+    	} catch (Exception e) {
+    		System.out.println(e.getMessage());
+    	}
+    }
 }
