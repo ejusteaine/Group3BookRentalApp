@@ -18,7 +18,7 @@ public class categoryService {
             System.out.println("Enter a Category Name");
             String catname = sc.nextLine();
             categories.setCategory(catname);
-            boolean result = dbOps.addCategories(categories);
+            //boolean result = dbOps.addCategories(categories);
             System.out.println("You added "+ catname+ " to the database");
 
 

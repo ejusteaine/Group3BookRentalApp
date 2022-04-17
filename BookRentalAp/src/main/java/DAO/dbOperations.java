@@ -2,6 +2,7 @@ package DAO;
 
 import Models.Book;
 import Models.Category;
+import Models.Customer;
 
 import javax.xml.transform.Result;
 import java.sql.Date;
@@ -43,6 +44,22 @@ public class dbOperations {
         }
         return false;
     }
+    
+    public boolean addCustomer(Customer customer){
+        boolean result = true;
+        String insertBook = "insert into bookrentalapp.customer (customerId, firstName, lastName) values(?,?,?)";
+        try{
+            PreparedStatement ps = DBConnection.dbConnected().prepareStatement(insertBook);
+            ps.setInt(1, customer.getCustomerId());
+            ps.setString(2, customer.getFirstName());
+            ps.setString(3, customer.getLastName());
+            return result;
+
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
 
     public void viewBookByName(String title){
         String selectBook = "select books.bookId, books.title, authors.firstName, authors.lastName, categories.categoryName, books.releaseYear from bookrentalapp.books  join bookrentalapp.authors on books.authorId = authors.authorId join bookrentalapp.categories on books.categoryId = categories.categoryId where books.title = ?";
@@ -77,6 +94,24 @@ public class dbOperations {
               System.out.println("Book ID " + bookId + " was successfuly removed");
           }else{
               System.out.println("Oh snap book was not found");
+          }
+      }catch(Exception e){
+          System.out.println(e.getMessage());
+          return false;
+      }
+      return result;
+    }
+    
+    public boolean DeleteCustomerById(int customerId){
+        boolean result = true;
+      String deleteCustomer = "delete from bookrentalapp.customers where customers.customerId = ?";
+      try{
+          PreparedStatement ps = DBConnection.dbConnected().prepareStatement(deleteCustomer);
+          ps.setInt(1,customerId);
+          if(result = ps.executeUpdate() > 0) {
+              System.out.println("Customer ID " + customerId + " was successfuly removed");
+          }else{
+              System.out.println("Oh snap customer was not found");
           }
       }catch(Exception e){
           System.out.println(e.getMessage());
@@ -126,7 +161,7 @@ public class dbOperations {
             ps.setInt(1, customerId);
     		ResultSet rs = ps.executeQuery();
     		while (rs.next()) {
-    			int customerId = rs.getInt("customerId");
+    			customerId = rs.getInt("customerId");
     			String firstName = rs.getString("firstName");
     			String lastName = rs.getString("lastName");
     			System.out.println(customerId + " " + firstName + " " + lastName);

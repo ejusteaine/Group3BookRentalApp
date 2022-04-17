@@ -6,9 +6,6 @@ public class Customer implements java.io.Serializable {
     private String lastName;
 
     public Customer(){
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.customerId = customerId;
     }
 
     public int getCustomerId() {

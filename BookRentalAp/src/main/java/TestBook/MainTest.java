@@ -3,8 +3,10 @@ package TestBook;
 import DAO.dbOperations;
 import Models.Category;
 import Services.BookService;
+import Services.CustomerService;
 import Services.categoryService;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MainTest {
@@ -13,6 +15,7 @@ public class MainTest {
       Scanner input = new Scanner(System.in);
 
         BookService bkService = new BookService();
+        CustomerService cService = new CustomerService();
 
       int choice;
         try {
@@ -48,8 +51,11 @@ public class MainTest {
                         ;
                         break;
                     case 5:
-                        bkService.BookStatus(sc);
+                        cService.addCustomer(sc);
                         break;
+                    case 6:
+                    	cService.removeCustomerById(sc);
+                    	break;
                 }
             }
             while (choice != 4) ;
