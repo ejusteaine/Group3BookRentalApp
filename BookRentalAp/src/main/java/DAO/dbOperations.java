@@ -119,6 +119,23 @@ public class dbOperations {
         return result;
     }
     
+     public boolean updateCustomerName (int customerId, String firstName, String lastName) {
+    	boolean result = true;
+    	System.out.println("Enter Customer ID");
+    	String updateCustomerName = "update bookrentalapp.customer set customer.firstName = ? customer.lastName = ? where customer.customerId = ?";
+    	 try {
+             PreparedStatement ps = DBConnection.dbConnected().prepareStatement(updateCustomerName);
+             ps.setInt(1, customerId);
+             ps.setString(2, firstName);
+             ps.setString(3, lastName);
+             result = ps.executeUpdate() > 0;
+    	 } catch(Exception e) {
+    		 System.out.println(e.getMessage());
+    		 result = false;
+    	 }
+    	 return result;
+    }
+    
         public void viewExistingCustomers (int customerId) {
     	String listCustomers = "select customers.customerId, customers.firstName, customers.lastName where customerId = ?";
     	try {
